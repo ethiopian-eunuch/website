@@ -1,9 +1,3 @@
-I will update the document to incorporate GitHub-Flavored Markdown callout blocks (\> \[\!NOTE\], \> \[\!WARNING\], \> \[\!IMPORTANT\], etc.) to highlight key details and context clearly.
-
-Chris LaCivita Controversies
-
-Export
-
 ## 
 
 layout: default title: "Political Profile: Chris LaCivita Controversies" description: "A summary of key political controversies and public inquiries involving Republican strategist Chris LaCivita."
@@ -62,9 +56,3 @@ An August 2024 campaign visit by Donald Trump to Arlington National Cemetery res
 * **Official Rebuke:** The U.S. Army issued a rare public statement rebuking the campaign and defending the employee, drawing criticism from military veterans and ethics watchdog groups.
 
 \[\!TIP\]
-
-*This document is formatted using native GitHub-Flavored Markdown (GFM) callout blocks and front matter, making it ready for Jekyll or native rendering on GitHub Pages.*
-
-Edit directly or with Gemini  
-Click anywhere to type and edit directly, or select text to prompt Gemini for changes.  
-I've updated the file to include standard GitHub Pages callout boxes (\[\!NOTE\], \[\!WARNING\], \[\!IMPORTANT\], \[\!CAUTION\], and \[\!TIP\]). These will render cleanly with icons and colored borders when published on GitHub Pages or viewed on GitHub\!
