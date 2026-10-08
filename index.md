@@ -13,7 +13,7 @@ layout: default title: "Overview: Trump Family & Extended Relatives in the Spotl
 Over the years, several members of Donald Trump’s immediate family, extended relatives, and family by marriage have drawn public focus, legal scrutiny, or media controversy.
 
 ## **1\. Relatives by Marriage & In-Laws**
->[!WARNING]**Status: Employed as of 2026-10-08
+>[!CAUTION]**Status: Employed as of 2026-10-08
 >Location: Europe
 >Note: Convicted criminal
 ### **Charles Kushner *(Father-in-Law to Ivanka Trump)***
