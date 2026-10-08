@@ -58,3 +58,6 @@ graph LR
     B --> D{Impact Type}
     D -->|Coastal| E[Storm Surge: 3-5 ft]
     D -->|Inland| F[Heavy Rain: 4-8 in]
+
+
+<img width="883" height="511" alt="image" src="https://github.com/user-attachments/assets/7bad9ebd-1328-4b03-9e6c-9623874a5dcc" />
