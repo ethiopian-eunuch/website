@@ -1,1 +1,16 @@
+Example Mermaid
 
+```mermaid
+graph TD;
+    A[Markdown Note] --> B(GitHub Repo);
+    B --> C{GitHub Pages};
+    C -->|Build| D[Live Website];
+```
+
+Example Collapsable Sections
+
+<details>
+<summary>Click to expand technical details</summary>
+
+Hidden content or detailed logs go here.
+</details>
