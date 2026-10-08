@@ -4,7 +4,7 @@ layout: default title: "Political Profile: Chris LaCivita Controversies" descrip
 
 # **Political Profile: Chris LaCivita Controversies**
 
-**Chris LaCivita** is a veteran Republican political strategist who served as co-campaign manager for Donald Trump’s 2024 presidential campaign alongside Susie Wiles. Over his multi-decade career in political operations, he has been involved in several high-profile national controversies.
+**Chris LaCivita** is a veteran Republican political strategist who served as co-campaign manager for Donald Trump’s 2024 presidential campaign alongside Susie Wiles. Over his multi-decade career in political operations, he has been involved in several high-profile national controversies. He is currently the leading strategist for MAGA, Inc.
 
 ## **Key Controversies & Media Scrutiny**
 
