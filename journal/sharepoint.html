@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SharePoint Site Architecture & Access Control</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        sp: {
+                            blue: '#0078d4',
+                            teal: '#008272',
+                            dark: '#0f172a',
+                            slate: '#1e293b',
+                            card: '#1e293b',
+                            border: '#334155'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .glow-active {
+            box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.4);
+        }
+        .glow-success {
+            box-shadow: 0 0 20px -5px rgba(16, 185, 129, 0.3);
+        }
+        .glow-danger {
+            box-shadow: 0 0 20px -5px rgba(239, 68, 68, 0.25);
+        }
+        .connection-line {
+            transition: all 0.3s ease;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Top Navigation Header -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-gradient-to-tr from-sky-500 to-indigo-600 rounded-lg shadow-md shadow-indigo-500/20">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg text-white flex items-center gap-2">
+                        SharePoint Architecture Blueprint
+                        <span class="text-xs bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded-full font-mono font-medium">v1.0</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Permissions & Site Hierarchy Overview</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleModal('ghModal')" class="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg transition-all shadow-sm hover:border-slate-600">
+                    <svg class="w-4 h-4 text-slate-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+                    </svg>
+                    GitHub Pages Setup
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Body Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- Top Banner / Dynamic Status -->
+        <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950/40 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div>
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-3">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Architecture Validated
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">SharePoint Site & Role Matrix</h2>
+                    <p class="text-slate-400 mt-1 max-w-2xl text-sm leading-relaxed">
+                        Interactive deployment blueprint showing permission boundaries, site collections, and access control rules across Client Files and Administration environments.
+                    </p>
+                </div>
+                <!-- Global Quick Stats -->
+                <div class="flex items-center gap-4 bg-slate-950/60 border border-slate-800/80 p-3.5 rounded-xl backdrop-blur-sm self-stretch md:self-auto justify-around">
+                    <div class="text-center px-3 border-r border-slate-800">
+                        <span class="text-xs text-slate-500 uppercase font-semibold block">Sites</span>
+                        <span class="text-xl font-bold text-sky-400">2</span>
+                    </div>
+                    <div class="text-center px-3 border-r border-slate-800">
+                        <span class="text-xs text-slate-500 uppercase font-semibold block">Users</span>
+                        <span class="text-xl font-bold text-indigo-400">3</span>
+                    </div>
+                    <div class="text-center px-3">
+                        <span class="text-xs text-slate-500 uppercase font-semibold block">Restricted</span>
+                        <span class="text-xl font-bold text-amber-400">1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Control Filter Panel -->
+        <section class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 shadow-lg backdrop-blur-sm">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                    </svg>
+                    <span class="text-sm font-semibold text-slate-200">Interactive Filter Mode:</span>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                    <button id="filter-all" onclick="setFilter('all')" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg border transition-all duration-200 bg-indigo-600 text-white border-indigo-500 shadow-md">
+                        Show All Topology
+                    </button>
+                    
+                    <div class="h-4 w-px bg-slate-800 hidden sm:block"></div>
+                    <span class="text-xs text-slate-500 font-mono uppercase hidden sm:inline">By User:</span>
+
+                    <button id="filter-judy" onclick="setFilter('user', 'judy')" class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700 hover:text-white transition-all flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-pink-400"></span> Judy
+                    </button>
+                    <button id="filter-jenny" onclick="setFilter('user', 'jenny')" class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700 hover:text-white transition-all flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-purple-400"></span> Jenny
+                    </button>
+                    <button id="filter-attorney" onclick="setFilter('user', 'attorney')" class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700 hover:text-white transition-all flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-amber-400"></span> Attorney
+                    </button>
+
+                    <div class="h-4 w-px bg-slate-800 hidden sm:block"></div>
+                    <span class="text-xs text-slate-500 font-mono uppercase hidden sm:inline">By Site:</span>
+
+                    <button id="filter-client" onclick="setFilter('site', 'client')" class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700 hover:text-white transition-all flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                        Client Files
+                    </button>
+                    <button id="filter-admin" onclick="setFilter('site', 'admin')" class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700 hover:text-white transition-all flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        Administration
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visual Architecture Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+            <!-- Users Column (Left Side: 4 cols) -->
+            <div class="lg:col-span-4 space-y-4">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        User Identities (3)
+                    </h3>
+                    <span class="text-xs text-slate-500">Active Directory</span>
+                </div>
+
+                <!-- Judy Card -->
+                <div id="user-card-judy" class="user-card bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-xl p-5 transition-all duration-300 relative cursor-pointer group" onclick="setFilter('user', 'judy')">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 flex items-center justify-center font-bold text-white shadow-md shadow-pink-500/20">
+                                J
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-slate-100 group-hover:text-pink-400 transition-colors">Judy</h4>
+                                <p class="text-xs text-slate-400">Team Member / Staff</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">Internal</span>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                        <span class="text-slate-400">Accessible Sites:</span>
+                        <span class="font-medium text-emerald-400 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 1 of 2 Sites
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Jenny Card -->
+                <div id="user-card-jenny" class="user-card bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-xl p-5 transition-all duration-300 relative cursor-pointer group" onclick="setFilter('user', 'jenny')">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-400 flex items-center justify-center font-bold text-white shadow-md shadow-purple-500/20">
+                                J
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-slate-100 group-hover:text-purple-400 transition-colors">Jenny</h4>
+                                <p class="text-xs text-slate-400">Team Member / Staff</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">Internal</span>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                        <span class="text-slate-400">Accessible Sites:</span>
+                        <span class="font-medium text-emerald-400 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 1 of 2 Sites
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Attorney Card -->
+                <div id="user-card-attorney" class="user-card bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-xl p-5 transition-all duration-300 relative cursor-pointer group" onclick="setFilter('user', 'attorney')">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center font-bold text-white shadow-md shadow-amber-500/20">
+                                A
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-slate-100 group-hover:text-amber-400 transition-colors">Attorney</h4>
+                                <p class="text-xs text-slate-400">Executive / Legal Admin</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-semibold">Elevated</span>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                        <span class="text-slate-400">Accessible Sites:</span>
+                        <span class="font-medium text-sky-400 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span> 2 of 2 Sites (Full Access)
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SharePoint Sites Column (Right Side: 8 cols) -->
+            <div class="lg:col-span-8 space-y-6">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        SharePoint Site Architecture & Policy
+                    </h3>
+                    <span class="text-xs text-slate-500">Tenant Target</span>
+                </div>
+
+                <!-- Site 1: Client Files -->
+                <div id="site-card-client" class="site-card bg-slate-900 border border-slate-800 rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-sky-500/5 rounded-bl-full pointer-events-none"></div>
+                    
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-800">
+                        <div class="flex items-center space-x-4">
+                            <div class="p-3 bg-sky-500/10 border border-sky-500/20 rounded-xl text-sky-400 shadow-inner">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h4 class="text-xl font-bold text-white">Client Files</h4>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-sky-500/10 text-sky-400 border border-sky-500/20">Standard Team Site</span>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-1">Shared workspace for active client case documents and records.</p>
+                            </div>
+                        </div>
+
+                        <button onclick="openDetailModal('client')" class="self-start sm:self-auto px-3 py-1.5 text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-lg transition-all flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            View Permissions
+                        </button>
+                    </div>
+
+                    <!-- User Badges for Client Files -->
+                    <div class="mt-5">
+                        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Authorized Users & Roles</div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <!-- Judy Access -->
+                            <div id="access-client-judy" class="access-node bg-slate-950/70 border border-emerald-500/30 rounded-xl p-3 flex items-center justify-between transition-all">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-7 h-7 rounded-full bg-pink-500/20 border border-pink-500/30 text-pink-400 flex items-center justify-center font-bold text-xs">J</div>
+                                    <div>
+                                        <div class="text-xs font-semibold text-slate-200">Judy</div>
+                                        <div class="text-[10px] text-emerald-400 font-medium flex items-center gap-1">
+                                            Full Control
+                                        </div>
+                                    </div>
+                                </div>
+                                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+
+                            <!-- Jenny Access -->
+                            <div id="access-client-jenny" class="access-node bg-slate-950/70 border border-emerald-500/30 rounded-xl p-3 flex items-center justify-between transition-all">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-7 h-7 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-400 flex items-center justify-center font-bold text-xs">J</div>
+                                    <div>
+                                        <div class="text-xs font-semibold text-slate-200">Jenny</div>
+                                        <div class="text-[10px] text-emerald-400 font-medium flex items-center gap-1">
+                                            Full Control
+                                        </div>
+                                    </div>
+                                </div>
+                                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+
+                            <!-- Attorney Access -->
+                            <div id="access-client-attorney" class="access-node bg-slate-950/70 border border-emerald-500/30 rounded-xl p-3 flex items-center justify-between transition-all">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 flex items-center justify-center font-bold text-xs">A</div>
+                                    <div>
+                                        <div class="text-xs font-semibold text-slate-200">Attorney</div>
+                                        <div class="text-[10px] text-emerald-400 font-medium flex items-center gap-1">
+                                            Full Control
+                                        </div>
+                                    </div>
+                                </div>
+                                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Site 2: Administration -->
+                <div id="site-card-admin" class="site-card bg-slate-900 border border-slate-800 rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-bl-full pointer-events-none"></div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-800">
+                        <div class="flex items-center space-x-4">
+                            <div class="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-400 shadow-inner">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h4 class="text-xl font-bold text-white">Administration</h4>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-rose-500/10 text-rose-400 border border-rose-500/20 font-semibold">Restricted Vault</span>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-1">Confidential legal executive records, billing, and firm governance.</p>
+                            </div>
+                        </div>
+
+                        <button onclick="openDetailModal('admin')" class="self-start sm:self-auto px-3 py-1.5 text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-lg transition-all flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            View Permissions
+                        </button>
+                    </div>
+
+                    <!-- User Badges for Administration -->
+                    <div class="mt-5">
+                        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Access Security Matrix</div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <!-- Judy Access (No Access) -->
+                            <div id="access-admin-judy" class="access-node bg-slate-950/40 border border-slate-800/80 opacity-60 rounded-xl p-3 flex items-center justify-between transition-all">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-7 h-7 rounded-full bg-slate-800 text-slate-500 flex items-center justify-center font-bold text-xs">J</div>
+                                    <div>
+                                        <div class="text-xs font-semibold text-slate-400">Judy</div>
+                                        <div class="text-[10px] text-rose-400/80 font-medium flex items-center gap-1">
+                                            No Access
+                                        </div>
+                                    </div>
+                                </div>
+                                <svg class="w-4 h-4 text-rose-500/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+                            </div>
+
+                            <!-- Jenny Access (No Access) -->
+                            <div id="access-admin-jenny" class="access-node bg-slate-950/40 border border-slate-800/80 opacity-60 rounded-xl p-3 flex items-center justify-between transition-all">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-7 h-7 rounded-full bg-slate-800 text-slate-500 flex items-center justify-center font-bold text-xs">J</div>
+                                    <div>
+                                        <div class="text-xs font-semibold text-slate-400">Jenny</div>
+                                        <div class="text-[10px] text-rose-400/80 font-medium flex items-center gap-1">
+                                            No Access
+                                        </div>
+                                    </div>
+                                </div>
+                                <svg class="w-4 h-4 text-rose-500/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+                            </div>
+
+                            <!-- Attorney Access (Full Control) -->
+                            <div id="access-admin-attorney" class="access-node bg-slate-950/90 border border-amber-500/40 rounded-xl p-3 flex items-center justify-between transition-all shadow-md">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 flex items-center justify-center font-bold text-xs">A</div>
+                                    <div>
+                                        <div class="text-xs font-semibold text-slate-100">Attorney</div>
+                                        <div class="text-[10px] text-amber-400 font-medium flex items-center gap-1">
+                                            Exclusive Full Control
+                                        </div>
+                                    </div>
+                                </div>
+                                <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Visual Permissions Matrix Section -->
+        <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        Security & Access Matrix Table
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-1">Direct representation of active privileges and site inheritance rules</p>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead>
+                        <tr class="border-b border-slate-800 text-xs font-semibold uppercase tracking-wider text-slate-400 bg-slate-950/40">
+                            <th class="py-3.5 px-4 rounded-l-lg">User / Identity</th>
+                            <th class="py-3.5 px-4">Role / Title</th>
+                            <th class="py-3.5 px-4">Client Files Site</th>
+                            <th class="py-3.5 px-4 rounded-r-lg">Administration Site</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/60 font-medium">
+                        <!-- Judy Row -->
+                        <tr class="hover:bg-slate-800/40 transition-colors">
+                            <td class="py-4 px-4 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold text-xs border border-pink-500/30">J</div>
+                                <span class="font-semibold text-slate-200">Judy</span>
+                            </td>
+                            <td class="py-4 px-4 text-slate-400 text-xs">Standard User</td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Full Access
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                    No Access (Blocked)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <!-- Jenny Row -->
+                        <tr class="hover:bg-slate-800/40 transition-colors">
+                            <td class="py-4 px-4 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xs border border-purple-500/30">J</div>
+                                <span class="font-semibold text-slate-200">Jenny</span>
+                            </td>
+                            <td class="py-4 px-4 text-slate-400 text-xs">Standard User</td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Full Access
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                    No Access (Blocked)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <!-- Attorney Row -->
+                        <tr class="hover:bg-slate-800/40 transition-colors">
+                            <td class="py-4 px-4 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs border border-amber-500/30">A</div>
+                                <span class="font-semibold text-slate-200">Attorney</span>
+                            </td>
+                            <td class="py-4 px-4 text-slate-400 text-xs">Site Collection Admin</td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Full Access
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                    Full Access (Owner)
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- GitHub Pages Setup Guide Modal -->
+    <div id="ghModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+            <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2 bg-slate-800 rounded-lg text-slate-200">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">GitHub Pages Deployment Guide</h3>
+                        <p class="text-xs text-slate-400">Host this interactive dashboard for free on GitHub Pages</p>
+                    </div>
+                </div>
+                <button onclick="toggleModal('ghModal')" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto space-y-6 text-sm text-slate-300">
+                <div class="space-y-2">
+                    <h4 class="font-semibold text-white flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 text-xs flex items-center justify-center font-mono border border-indigo-500/30">1</span>
+                        Save as `index.html`
+                    </h4>
+                    <p class="text-xs text-slate-400">Save this complete visual artifact into a file named <code class="bg-slate-950 px-1.5 py-0.5 rounded text-indigo-300 font-mono">index.html</code> at the root of your GitHub repository.</p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-semibold text-white flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 text-xs flex items-center justify-center font-mono border border-indigo-500/30">2</span>
+                        Push Code to GitHub
+                    </h4>
+                    <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-xs text-slate-300 overflow-x-auto space-y-1">
+                        <div>git add index.html</div>
+                        <div>git commit -m "Add SharePoint Architecture Dashboard"</div>
+                        <div>git push origin main</div>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-semibold text-white flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 text-xs flex items-center justify-center font-mono border border-indigo-500/30">3</span>
+                        Enable GitHub Pages
+                    </h4>
+                    <ol class="list-disc list-inside text-xs text-slate-400 space-y-1 pl-2">
+                        <li>Navigate to your GitHub Repository > <strong class="text-slate-200">Settings</strong>.</li>
+                        <li>Click on <strong class="text-slate-200">Pages</strong> in the left sidebar under "Code and automation".</li>
+                        <li>Under <strong class="text-slate-200">Build and deployment > Source</strong>, choose <code class="bg-slate-950 px-1 text-slate-300">Deploy from a branch</code>.</li>
+                        <li>Select <code class="bg-slate-950 px-1 text-slate-300">main</code> branch and folder <code class="bg-slate-950 px-1 text-slate-300">/ (root)</code>, then click <strong class="text-slate-200">Save</strong>.</li>
+                    </ol>
+                </div>
+
+                <div class="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-start gap-3">
+                    <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <p class="text-xs text-emerald-300">
+                        Your dashboard will automatically publish live at <code class="underline font-mono">https://&lt;your-username&gt;.github.io/&lt;repo-name&gt;/</code> in 1-2 minutes!
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-4 bg-slate-950 border-t border-slate-800 flex justify-end">
+                <button onclick="toggleModal('ghModal')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold transition-all">
+                    Got It
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Permissions Detail Modal -->
+    <div id="detailModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                <h3 id="modalTitle" class="text-lg font-bold text-white flex items-center gap-2">
+                    Site Permissions Detail
+                </h3>
+                <button onclick="toggleModal('detailModal')" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <div id="modalContent" class="py-4 space-y-4 text-xs text-slate-300">
+                <!-- Injected dynamically -->
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 flex justify-end">
+                <button onclick="toggleModal('detailModal')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-semibold transition-all">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 bg-slate-950 py-6 text-center text-xs text-slate-500">
+        <p>SharePoint Security Topology Visualizer • Designed for GitHub Pages</p>
+    </footer>
+
+    <script>
+        // Data Configuration
+        const siteDetails = {
+            client: {
+                title: "Client Files Site - Permission Breakdown",
+                description: "Standard Team Site with full read/write/manage permissions for team operations.",
+                users: [
+                    { name: "Judy", level: "Full Control (Owners Group)", status: "Active" },
+                    { name: "Jenny", level: "Full Control (Owners Group)", status: "Active" },
+                    { name: "Attorney", level: "Full Control (Site Collection Admin)", status: "Active" }
+                ],
+                rules: [
+                    "Permission Inheritance: Enabled from Site Collection",
+                    "Default Document Library: Read/Write for all 3 assigned users",
+                    "External Sharing: Restricted to domain members"
+                ]
+            },
+            admin: {
+                title: "Administration Site - Security Breakdown",
+                description: "High-security restricted vault with broken permission inheritance.",
+                users: [
+                    { name: "Judy", level: "No Access (Explicitly Excluded)", status: "Blocked" },
+                    { name: "Jenny", level: "No Access (Explicitly Excluded)", status: "Blocked" },
+                    { name: "Attorney", level: "Full Control (Sole Site Owner)", status: "Active" }
+                ],
+                rules: [
+                    "Permission Inheritance: Broken (Unique Permissions)",
+                    "Access Requests: Disabled",
+                    "Audit Logging: Highly Sensitive Enabled"
+                ]
+            }
+        };
+
+        // Filter Logic
+        function setFilter(type, value) {
+            // Reset all active highlight styles on cards
+            document.querySelectorAll('.user-card, .site-card, .access-node').forEach(el => {
+                el.classList.remove('ring-2', 'ring-indigo-500', 'ring-emerald-500', 'ring-amber-500', 'opacity-20', 'scale-[1.02]');
+            });
+
+            // Reset filter buttons visual state
+            const buttons = ['filter-all', 'filter-judy', 'filter-jenny', 'filter-attorney', 'filter-client', 'filter-admin'];
+            buttons.forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                if (btn) {
+                    btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-500');
+                    btn.classList.add('bg-slate-800', 'text-slate-300', 'border-slate-700');
+                }
+            });
+
+            if (type === 'all') {
+                document.getElementById('filter-all').classList.add('bg-indigo-600', 'text-white', 'border-indigo-500');
+                return;
+            }
+
+            // Highlight specific User
+            if (type === 'user') {
+                const activeBtn = document.getElementById(`filter-${value}`);
+                if (activeBtn) activeBtn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-500');
+
+                // User card focus
+                const userCard = document.getElementById(`user-card-${value}`);
+                if (userCard) userCard.classList.add('ring-2', 'ring-indigo-500', 'scale-[1.02]');
+
+                // Highlight corresponding access nodes
+                if (value === 'judy') {
+                    document.getElementById('access-client-judy').classList.add('ring-2', 'ring-emerald-500');
+                    document.getElementById('access-admin-judy').classList.add('ring-2', 'ring-rose-500');
+                } else if (value === 'jenny') {
+                    document.getElementById('access-client-jenny').classList.add('ring-2', 'ring-emerald-500');
+                    document.getElementById('access-admin-jenny').classList.add('ring-2', 'ring-rose-500');
+                } else if (value === 'attorney') {
+                    document.getElementById('access-client-attorney').classList.add('ring-2', 'ring-emerald-500');
+                    document.getElementById('access-admin-attorney').classList.add('ring-2', 'ring-amber-500');
+                }
+            }
+
+            // Highlight specific Site
+            if (type === 'site') {
+                const activeBtn = document.getElementById(`filter-${value}`);
+                if (activeBtn) activeBtn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-500');
+
+                const siteCard = document.getElementById(`site-card-${value}`);
+                if (siteCard) siteCard.classList.add('ring-2', 'ring-sky-500', 'scale-[1.01]');
+            }
+        }
+
+        // Modal Handler
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.toggle('hidden');
+            }
+        }
+
+        // Open Permissions Detail Modal
+        function openDetailModal(siteKey) {
+            const detail = siteDetails[siteKey];
+            if (!detail) return;
+
+            document.getElementById('modalTitle').innerText = detail.title;
+            
+            let htmlContent = `
+                <p class="text-slate-400 mb-4">${detail.description}</p>
+                <div class="space-y-3">
+                    <h5 class="text-xs font-semibold uppercase text-slate-300 tracking-wider">User Rights</h5>
+                    <div class="space-y-2">
+            `;
+
+            detail.users.forEach(u => {
+                const isBlocked = u.status === 'Blocked';
+                htmlContent += `
+                    <div class="p-2.5 rounded-lg border ${isBlocked ? 'bg-rose-500/5 border-rose-500/20' : 'bg-slate-950 border-slate-800'} flex items-center justify-between">
+                        <span class="font-semibold text-slate-200">${u.name}</span>
+                        <span class="${isBlocked ? 'text-rose-400' : 'text-emerald-400'} font-mono text-[11px]">${u.level}</span>
+                    </div>
+                `;
+            });
+
+            htmlContent += `
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-800 space-y-2">
+                    <h5 class="text-xs font-semibold uppercase text-slate-300 tracking-wider">Policy Highlights</h5>
+                    <ul class="list-disc list-inside text-slate-400 space-y-1">
+                        ${detail.rules.map(r => `<li>${r}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            document.getElementById('modalContent').innerHTML = htmlContent;
+            toggleModal('detailModal');
+        }
+    </script>
+</body>
+</html>
