@@ -9,71 +9,71 @@ tags: microsoft, o365
 ---
 1.  Ensure that intelligence for impersonation protection is enabled
 
-Move messages that are detected as impersonated users by mailbox intelligence
+2.  Move messages that are detected as impersonated users by mailbox intelligence
 
-Enable impersonated domain protection
+3.  Enable impersonated domain protection
 
-Set the phishing email level threshold at 2 or higher
+4.  Set the phishing email level threshold at 2 or higher
 
-Enable impersonated user protection
+5.  Enable impersonated user protection
 
-Quarantine messages that are detected from impersonated domains
+6.  Quarantine messages that are detected from impersonated domains
 
-Quarantine messages that are detected from impersonated users
+7.  Quarantine messages that are detected from impersonated users
 
-Ensure 'External sharing' of calendars is not available
+8.  Ensure 'External sharing' of calendars is not available
 
-Ensure additional storage providers are restricted in Outlook on the web
+9.  Ensure additional storage providers are restricted in Outlook on the web
 
-Ensure the Common Attachment Types Filter is enabled
+10.  Ensure the Common Attachment Types Filter is enabled
 
-Ensure all forms of mail forwarding are blocked and/or disabled
+11.  Ensure all forms of mail forwarding are blocked and/or disabled
 
-Ensure DLP policies are enabled
+12.  Ensure DLP policies are enabled
 
-Set action to take on high confidence spam detection
+13.  Set action to take on high confidence spam detection
 
-Ensure user consent to apps accessing company data on their behalf is not allowed
+14.  Ensure user consent to apps accessing company data on their behalf is not allowed
 
-Ensure MailTips are enabled for end users
+15.  Ensure MailTips are enabled for end users
 
-Ensure mailbox auditing for all users is Enabled
+16.  Ensure mailbox auditing for all users is Enabled
 
-Ensure users installing Outlook add-ins is not allowed
+17.  Ensure users installing Outlook add-ins is not allowed
 
-Enable the domain impersonation safety tip
+18.  Enable the domain impersonation safety tip
 
-Enable the user impersonation safety tip
+19.  Enable the user impersonation safety tip
 
-Enable the user impersonation unusual characters safety tip
+20.  Enable the user impersonation unusual characters safety tip
 
-Ensure Exchange Online Spam Policies are set to notify administrators
+21.  Ensure Exchange Online Spam Policies are set to notify administrators
 
-Ensure Safe Links for Office Applications is Enabled
+22.  Ensure Safe Links for Office Applications is Enabled
 
-Ensure that an anti-phishing policy has been created
+23.  Ensure that an anti-phishing policy has been created
 
-Only invited users should be automatically admitted to Teams meetings
+24.  Only invited users should be automatically admitted to Teams meetings
 
-Configure which users are allowed to present in Teams meetings
+25.  Configure which users are allowed to present in Teams meetings
 
-Publish M365 sensitivity label data classification policies
+26.  Publish M365 sensitivity label data classification policies
 
-Ensure the customer lockbox feature is enabled
+27.  Ensure the customer lockbox feature is enabled
 
-Restrict anonymous users from joining meetings
+28.  Restrict anonymous users from joining meetings
 
-Designate more than one global admin
+29.  Designate more than one global admin
 
-Use least privileged administrative roles
+30.  Use least privileged administrative roles
 
-Block users who reached the message limit
+31.  Block users who reached the message limit
 
-Extend M365 sensitivity labeling to assets in Microsoft Purview data map
+32.  Extend M365 sensitivity labeling to assets in Microsoft Purview data map
 
-Ensure that Auto-labeling data classification policies are set up and used
+33.  Ensure that Auto-labeling data classification policies are set up and used
 
-Set the email bulk complaint level (BCL) threshold to be 6 or lower
+34.  Set the email bulk complaint level (BCL) threshold to be 6 or lower
 
 # Impersonation settings in anti-phishing policies in Microsoft Defender for Office 365
 Impersonation is where the sender or the sender's email domain in a message looks similar to a real sender or domain:
