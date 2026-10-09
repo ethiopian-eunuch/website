@@ -1,3 +1,12 @@
+---
+title: Suggestions To Increase Office 365 Security
+source: Microsoft Office 365 Admin Portal
+author: ME
+published: 2026-10-09
+created: 2026-10-09
+description: This is a list of items that Microsoft suggests to implement to increase security at the Office 365 system level.
+tags: microsoft, o365
+---
 Ensure that intelligence for impersonation protection is enabled
 
 Move messages that are detected as impersonated users by mailbox intelligence
