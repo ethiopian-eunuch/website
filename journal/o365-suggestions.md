@@ -7,7 +7,7 @@ created: 2026-10-09
 description: This is a list of items that Microsoft suggests to implement to increase security at the Office 365 system level.
 tags: microsoft, o365
 ---
-Ensure that intelligence for impersonation protection is enabled
+1.  Ensure that intelligence for impersonation protection is enabled
 
 Move messages that are detected as impersonated users by mailbox intelligence
 
@@ -74,6 +74,25 @@ Extend M365 sensitivity labeling to assets in Microsoft Purview data map
 Ensure that Auto-labeling data classification policies are set up and used
 
 Set the email bulk complaint level (BCL) threshold to be 6 or lower
+
+# Impersonation settings in anti-phishing policies in Microsoft Defender for Office 365
+Impersonation is where the sender or the sender's email domain in a message looks similar to a real sender or domain:
+
+An example impersonation of the domain contoso.com is ćóntoso.com.
+User impersonation is the combination of the user's display name and email address. For example, Valeria Barrios (vbarrios@contoso.com) might be impersonated as Valeria Barrios, but with a different email address.
+> [!NOTE]
+>
+>Impersonation protection looks for domains that are similar. For example, if your domain is contoso.com, we check for different top-level domains (.com, .biz, etc.), but also domains >that are even slightly similar. For example, contosososo.com or contoabcdef.com might be seen as impersonation attempts of contoso.com.
+
+An impersonated domain might otherwise be considered legitimate (the domain is registered, email authentication DNS records are configured, etc.), except the intent of the domain is to deceive recipients.
+
+The impersonation settings for user impersonation protection, domain impersonation protection, mailbox intelligence, impersonation safety tips, and trusted senders and domains are available only in anti-phishing policies in Defender for Office 365.
+
+> [!TIP]
+>
+>Details about detected impersonation attempts are available in the impersonation insight. For more information, see Impersonation insight in Defender for Office 365.
+>
+>For a comparison of impersonation versus spoofing, see Spoofing vs. impersonation.
 
 Ensure multifactor authentication is enabled for all users in administrative roles
 
