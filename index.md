@@ -38,9 +38,9 @@ Over the years, several members of Donald Trump’s immediate family, extended r
   * High-profile scrutiny regarding his security clearance application and official communications.  
   * Post-white house scrutiny surrounding his private equity firm, **Affinity Partners**, which received a **\$2 billion investment** from Saudi Arabia's Sovereign Wealth Fund shortly after he left office.
 
-| Affinity Partners| Default | Status |
+| Country | Deal | Concern |
 | :--- | :---: | ---: |
-| Left-aligned | Center-aligned | Right-aligned |
+| Saudi Arabia | $2B | ONE OF THE MOST BRUTAL REGIMES |
 | `blink.cmp` | Enabled | Active |
 | `csvview` | Disabled | Inactive |
 
