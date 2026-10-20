@@ -1,7 +1,7 @@
 | Trump Family Controversies Overview | Warning | Details |
 | :--- | :---: | --: |
 | **WLF** | <div style="background-color: #ffeef0; padding: 8px; border-left: 4px solid #d73a49;"><strong>POTUS, Don Jr., Eric, Tiffany, Barron, Jared Kushner, Steve and Zach Witkoff.</strong> </div> | $2.4B net worth increase to Trump alone in 2025. Eric goes around the world raising more and more clients. Jared and Steve have gone around the world unsuccessfully trying to solve wars, real estate in Gaza, and world peace. |
-
+| Charles Kushner - Convicted Felon | France Fall 2026 | Student protests turning into unrest and attacks on historic building which burned to the ground by unknown persons. Where is Kushner and what has he discussed with Laurent Bili, French Ambassador to the USA | 
 Export
 
 ## 
