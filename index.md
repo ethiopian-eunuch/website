@@ -41,7 +41,7 @@ Over the years, several members of Donald Trump’s immediate family, extended r
 | Country | Deal | Concern |
 | :--- | :---: | ---: |
 | Saudi Arabia | $2B | ONE OF THE MOST BRUTAL REGIMES |
-| `blink.cmp` | Enabled | Active |
+| Board of Peace | Real Estate Dev | Mass Forced Exodus of People |
 | `csvview` | Disabled | Inactive |
 
 ## **2\. Immediate & Extended Family**
