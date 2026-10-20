@@ -56,7 +56,6 @@ Over the years, several members of Donald Trump’s immediate family, extended r
 | Sultanate of Oman | At least $4B but will grow exponentially | Oman Real Estate & Golf Resort Crypto Venture & Token Launch The people who buy volatile coins could lose everything as already has been seen with many Trump coins. The boys will profit generously as their father has this past year. |
 | :--- | :---: | ---: |
 | MAGA | Agitate Americans against each the | Civil Unrest |
-
 | US Pentagon | $640M | Add details here |
 | Drone company | Billions | Our business is war, and business is good. |
 | Kazakhstan Tungsten Mining | Billions I'm Sure | Boys need more land and more rare earths? |
