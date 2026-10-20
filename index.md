@@ -38,6 +38,12 @@ Over the years, several members of Donald Trump’s immediate family, extended r
   * High-profile scrutiny regarding his security clearance application and official communications.  
   * Post-white house scrutiny surrounding his private equity firm, **Affinity Partners**, which received a **\$2 billion investment** from Saudi Arabia's Sovereign Wealth Fund shortly after he left office.
 
+| Affinity Partners| Default | Status |
+| :--- | :---: | ---: |
+| Left-aligned | Center-aligned | Right-aligned |
+| `blink.cmp` | Enabled | Active |
+| `csvview` | Disabled | Inactive |
+
 ## **2\. Immediate & Extended Family**
 
 ### **Donald Trump Jr. & Eric Trump *(Sons)***
