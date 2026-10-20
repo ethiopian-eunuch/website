@@ -1,4 +1,4 @@
-oI will now generate the Markdown document optimized for GitHub Pages, including Jekyll front matter to ensure it renders correctly.
+I'm oI will now generate the Markdown document optimized for GitHub Pages, including Jekyll front matter to ensure it renders correctly.
 
 Trump Family Controversies Overview
 
@@ -51,6 +51,7 @@ Over the years, several members of Donald Trump’s immediate family, extended r
 > Being transparent with the voters they are leading the way in out in the open deals which they enrich themselves with while the whole world watches.
 > Minerals
 > Defense
+
 | Entity | Deal Worth | Concern |
 | Oman | $4B | Oman Real Estate & Golf Resort Crypto Venture & Token Launch |
 | :--- | :---: | ---: |
