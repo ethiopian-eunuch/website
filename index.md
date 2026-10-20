@@ -42,7 +42,7 @@ Over the years, several members of Donald Trump’s immediate family, extended r
 | :--- | :---: | ---: |
 | Saudi Arabia | $2B | ONE OF THE MOST BRUTAL REGIMES |
 | Board of Peace | Real Estate Dev | Mass Forced Exodus of People |
-| `csvview` | Disabled | Inactive |
+| Russia | War On Ukraine | Actively Helping to Undermine People Of Ukraine |
 
 ## **2\. Immediate & Extended Family**
 
