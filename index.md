@@ -59,7 +59,8 @@ Over the years, several members of Donald Trump’s immediate family, extended r
 | US Pentagon | $640M | Add details here |
 | Drone company | Billions | Our business is war, and business is good. |
 | Kazakhstan Tungsten Mining | Billions I'm Sure | Boys need more land and more rare earths? |
-| Vulcan Elements & Defense Contractors | $4B | The normalizing of war as a regular business that family's can profit from elections. |
+| Vulcan Elements & Defense Contractors | $4B | The normalizing of war as a regular business that families can profit from elections. |
+| Oman | Unknown to me | Dar Al Arkan, also the sale of military tech to defend it I'm sure will be discussed since the war we started precipitated the attacks by Iran on Oman |
 
 Entity / Country
 Oman (Dar Al Arkan)
