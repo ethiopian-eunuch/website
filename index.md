@@ -7,6 +7,10 @@ Export
 ## 
 
 layout: default title: "Overview: Trump Family & Extended Relatives in the Spotlight" description: "A summary of public scrutiny, legal cases, and controversies involving members of the Trump extended family and in-laws."
+<details>
+<summary>Trump Family & Extended Relatives in Public & Legal Controversies</summary>
+Over the years, several members of Donald Trump’s immediate family, extended relatives, and family by marriage have drawn public focus, legal scrutiny, or media controversy.
+</details>
 
 # **Trump Family & Extended Relatives in Public & Legal Controversies**
 
