@@ -1,4 +1,4 @@
-I will now generate the Markdown document optimized for GitHub Pages, including Jekyll front matter to ensure it renders correctly.
+oI will now generate the Markdown document optimized for GitHub Pages, including Jekyll front matter to ensure it renders correctly.
 
 Trump Family Controversies Overview
 
@@ -72,6 +72,13 @@ Over the years, several members of Donald Trump’s immediate family, extended r
 * **Context:** Parents of First Lady Melania Trump.  
 * **Key Issues:**  
   * While they kept a low public profile, their path to U.S. citizenship via family-sponsored green cards ("chain migration") became a major political talking point due to the administration's policy stances opposing those exact immigration pathways.
+
+
+| Feature | Default | Status |
+| :--- | :---: | ---: |
+| Left-aligned | Center-aligned | Right-aligned |
+| `blink.cmp` | Enabled | Active |
+| `csvview` | Disabled | Inactive |
 
 *Note: This document is formatted using standard GitHub-Flavored Markdown (GFM) for seamless rendering on GitHub Pages or static site engines like Jekyll.*
 
