@@ -41,6 +41,10 @@ Over the years, several members of Donald Trump’s immediate family, extended r
 ## **2\. Immediate & Extended Family**
 
 ### **Donald Trump Jr. & Eric Trump *(Sons)***
+> [!CAUTION]
+> Being transparent with the voters they are leading the way in out in the open deals which they enrich themselves with while the whole world watches.
+> Minerals
+> Defense
 
 * **Context:** Executive Vice Presidents of the Trump Organization.  
 * **Key Issues:**  
