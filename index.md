@@ -1,6 +1,7 @@
-I'm oI will now generate the Markdown document optimized for GitHub Pages, including Jekyll front matter to ensure it renders correctly.
-
 Trump Family Controversies Overview
+| Entity | Details |
+| :--- | :--- |
+| **WLF** | <div style="background-color: #ffeef0; padding: 8px; border-left: 4px solid #d73a49;"><strong>Warning:</strong> High risk conflicts of interest.</div> |
 
 Export
 
@@ -60,18 +61,13 @@ Over the years, several members of Donald Trump’s immediate family, extended r
 | Drone company | Billions | Our business is war, and business is good. |
 | Kazakhstan Tungsten Mining | Billions I'm Sure | Boys need more land and more rare earths? |
 | Vulcan Elements & Defense Contractors | $4B | The normalizing of war as a regular business that families can profit from elections. |
-| Oman | Unknown to me | Dar Al Arkan, also the sale of military tech to defend it I'm sure will be discussed since the war we started precipitated the attacks by Iran on Oman |
+| Oman | Unknown to me | Dar Al Arkan, Dar Global Expansion: Expanding luxury Trump-branded towers in Jeddah and Dubai alongside foreign state-backed developments. (Kaz Resources): Acquisition of stakes in heavily subsidized international critical minerals ventures benefiting from U.S. government policy shifts. Future military sales |
+
+Oman |
 
 Entity / Country
 Oman (Dar Al Arkan)
-World Liberty Financial
-
-Deal
-$4B 
-$620M Pentagon-Backed Deals
-Additional Key Details
- Saudi Arabia / Dar Global Expansion: Expanding luxury Trump-branded towers in Jeddah and Dubai alongside foreign state-backed developments.
-  (Kaz Resources): Acquisition of stakes in heavily subsidized international critical minerals ventures benefiting from U.S. government policy shifts.
+World Liberty 
 
 * **Context:** Executive Vice Presidents of the Trump Organization.  
 * **Key Issues:**  
