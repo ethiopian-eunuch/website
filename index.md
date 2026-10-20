@@ -17,12 +17,11 @@ Over the years, several members of Donald Trump’s immediate family, extended r
 Over the years, several members of Donald Trump’s immediate family, extended relatives, and family by marriage have drawn public focus, legal scrutiny, or media controversy.
 
 ## **1\. Relatives by Marriage & In-Laws**
+### **Charles Kushner *(Father-in-Law to Ivanka Trump)***
 > [!CAUTION]
 > **Status: Employed as of 2026-10-08
 > Location: Europe
 > Note: Convicted criminal
-### **Charles Kushner *(Father-in-Law to Ivanka Trump)***
-
 * **Context:** Prominent New Jersey real estate developer.  
 * **Key Issues:**  
   * Convicted in 2004 for tax evasion, illegal campaign contributions, and witness tampering (a scheme involving a secretly recorded encounter to pressure his brother-in-law).  
