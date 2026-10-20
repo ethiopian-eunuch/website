@@ -59,11 +59,12 @@ Over the years, several members of Donald Trump’s immediate family, extended r
 | US Pentagon | $640M | Add details here |
 | Drone company | Billions | Our business is war, and business is good. |
 | Kazakhstan Tungsten Mining | Billions I'm Sure | Boys need more land and more rare earths? |
- 
+| Vulcan Elements & Defense Contractors | $4B | The normalizing of war as a regular business that family's can profit from elections. |
+
 Entity / Country
 Oman (Dar Al Arkan)
 World Liberty Financial
-Vulcan Elements & Defense Contractors
+
 Deal
 $4B 
 $620M Pentagon-Backed Deals
