@@ -1,5 +1,4 @@
-| Trump Family Controversies Overview
-| Entity | Details |
+| Trump Family Controversies Overview | Entity | Details |
 | :--- | :---: | --: |
 | **WLF** | <div style="background-color: #ffeef0; padding: 8px; border-left: 4px solid #d73a49;"><strong>Warning:</strong> POTUS, Don Jr., Eric, Tiffany, Barron, Jared Kushner, Steve and Zach Witkoff.</div> |
 
