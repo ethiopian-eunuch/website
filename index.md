@@ -1,6 +1,6 @@
-| Trump Family Controversies Overview | Entity | Details |
+| Trump Family Controversies Overview | Warning | Details |
 | :--- | :---: | --: |
-| **WLF** | <div style="background-color: #ffeef0; padding: 8px; border-left: 4px solid #d73a49;"><strong>Warning:</strong> POTUS, Don Jr., Eric, Tiffany, Barron, Jared Kushner, Steve and Zach Witkoff.</div> | $2.4B net worth increase to Trump alone in 2025. Eric goes around the world raising more and more clients. |
+| **WLF** | <div style="background-color: #ffeef0; padding: 8px; border-left: 4px solid #d73a49;"><strong>POTUS, Don Jr., Eric, Tiffany, Barron, Jared Kushner, Steve and Zach Witkoff.</strong> </div> | $2.4B net worth increase to Trump alone in 2025. Eric goes around the world raising more and more clients. |
 
 Export
 
