@@ -30,6 +30,8 @@ Over the years, several members of Donald Trump’s immediate family, extended r
   * Nominated in late 2024 to serve as U.S. Ambassador to France.
 
 ### **Jared Kushner *(Son-in-Law)***
+> [!CAUTION]
+> Most recently he has spent the past many months being our ambassador to the world, largely unsuccessfully. Redesigning Gaza as a real estate development, resolving the Iran war, the Russian war, the general Middle East Unrest, and the Board of Peace. 
 
 * **Context:** Senior Adviser to the President during the Trump administration.  
 * **Key Issues:**  
